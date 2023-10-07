@@ -7,6 +7,7 @@ import escapeStringRegexp from "escape-string-regexp";
 import UserPhotos from "@/components/UserPhotos";
 import { noProfileImage } from "@/utils/noProfileImage";
 import { CldImage } from "next-cloudinary";
+import PrimaryTimelines from "@/components/PrimaryTimelines";
 
 interface UserPageProps {
   userData: User | null;
@@ -36,6 +37,12 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
 
         <div>
           <UserPhotos username={userData?.email as string} />
+          <h2 className="text-2xl mb-6 font-bold">Publicaciones:</h2>
+          {userData?.email ? (
+            <PrimaryTimelines email={userData?.email} />
+          ) : (
+            <p>Cargando...</p>
+          )}
         </div>
       </div>
     </div>

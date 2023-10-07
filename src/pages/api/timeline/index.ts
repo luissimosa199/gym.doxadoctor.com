@@ -12,14 +12,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const session = await getServerSession(req, res, authOptions);
-  if (!session || !session.user) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
 
   await dbConnect();
 
   if (req.method === "GET") {
-    const { tags, page } = req.query;
+    const { tags, page, username } = req.query;
     const perPage = 10;
     const skip = page ? parseInt(page as string) * perPage : 0;
 
@@ -28,7 +25,7 @@ export default async function handler(
       const regexPatterns = tagsArray.map((tag) => new RegExp(`^${tag}`, "i"));
 
       const response = await TimeLineModel.find({
-        authorId: session.user.email,
+        authorId: username || session?.user?.email,
         tags: { $in: regexPatterns },
       })
         .sort({ createdAt: -1 })
@@ -38,15 +35,19 @@ export default async function handler(
 
       res.status(200).json(response);
     } else {
-      const response = await TimeLineModel.find({ authorId: session.user.email })
+      const response = await TimeLineModel.find({
+        authorId: username || session?.user?.email,
+      })
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(perPage)
         .lean();
       res.status(200).json(response);
     }
-
   } else if (req.method === "POST") {
+    if (!session || !session.user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     const { mainText, photo, length, tags, links, authorId, authorName } =
       JSON.parse(req.body) as TimelineFormInputs;
@@ -75,7 +76,6 @@ export default async function handler(
     await timeline.save();
 
     res.status(200).json(timeline.toJSON());
-    
   } else {
     res.status(405).json({ error: "Method not allowed" });
   }

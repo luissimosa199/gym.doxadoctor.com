@@ -139,11 +139,16 @@ const TimeLine: FunctionComponent<TimeLineProps> = ({
             {authorName === "defaultName" ? "" : authorName}
           </p>
           <div className="mt-4 flex justify-between items-center">
-            {/* <div>
-              {_id !== "newitem" && <ShareButtons url={timeLineUrl} title={`${mainText?.slice(0, 50)}`} />}
-            </div> */}
-            <div className="w-full flex justify-end gap-2">
+            <div>
               {_id !== "newitem" && (
+                <ShareButtons
+                  url={timeLineUrl}
+                  title={`${mainText?.slice(0, 50)}`}
+                />
+              )}
+            </div>
+            <div className="w-full flex justify-end gap-2">
+              {_id !== "newitem" && session?.user?.name === authorId && (
                 <>
                   <Link
                     className="text-blue-500 w-6 h-6 hover:text-blue-700 transition ease-in-out duration-150"
