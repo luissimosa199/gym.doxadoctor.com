@@ -6,6 +6,7 @@ import { uploadImages } from "@/utils/formHelpers";
 import PhotoInput from "./PhotoInput";
 import ProfileButtonsPanel from "./ProfileButtonsPanel";
 import ProfileStats from "./ProfileStats";
+import ShareButtons from "./ShareButtons";
 
 const ProfileCard = () => {
   const { data: session } = useSession();
@@ -61,6 +62,10 @@ const ProfileCard = () => {
     }
   };
 
+  const profileUrl =
+    process.env.NEXT_PUBLIC_BASE_URL +
+    `/instructor/${session?.user?.email?.split("@")[0]}`;
+
   return (
     <div className="flex flex-col justify-around items-center rounded-lg p-6 bg-white shadow-lg">
       <div className="px-12">
@@ -85,6 +90,12 @@ const ProfileCard = () => {
       <div className="text-center w-full ">
         <p className="font-bold text-2xl mb-3">{session!.user!.name}</p>
         <p className="italic mb-6 text-gray-600">{session!.user!.email}</p>
+        <div className=" mb-4">
+          <ShareButtons
+            url={profileUrl}
+            title={`Te comparto el perfil de ${session?.user?.name}`}
+          />
+        </div>
         <ProfileStats />
         <div className="mx-auto flex justify-center max-[443px]:max-w-[11rem] min-[443px]:max-w-[20.7rem] min-[616px]:max-w-[30.5rem]">
           <ProfileButtonsPanel />

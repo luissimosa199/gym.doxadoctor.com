@@ -16,33 +16,35 @@ interface UserPageProps {
 const User: FunctionComponent<UserPageProps> = ({ userData }) => {
   return (
     <div className="p-8 bg-gray-50 space-y-12">
-      <div className="flex gap-2 items-center">
-        <h1 className="text-4xl font-bold text-gray-800 border-b-2 pb-3">
-          {userData?.name}
-        </h1>
-      </div>
-      <div className="flex flex-col justify-around items-center border rounded-lg p-6 bg-white shadow-lg">
-        <div className="flex flex-col items-center relative">
-          <div className="flex flex-col items-center">
-            <CldImage
-              priority
-              src={(userData?.image as string) || noProfileImage}
-              width={128}
-              height={128}
-              alt={`${userData?.name}'s Avatar`}
-              className="w-32 h-32 object-cover rounded-full border-2 border-gray-300 mb-5"
-            />
-          </div>
+      <div className="max-w-[850px] mx-auto">
+        <div className="flex gap-2 items-center">
+          <h1 className="text-4xl font-bold text-gray-800 border-b-2 pb-3 mb-2">
+            {userData?.name}
+          </h1>
         </div>
+        <div className="flex flex-col justify-around items-center border rounded-lg p-6 bg-white shadow-lg">
+          <div className="flex flex-col items-center relative">
+            <div className="flex flex-col items-center">
+              <CldImage
+                priority
+                src={(userData?.image as string) || noProfileImage}
+                width={128}
+                height={128}
+                alt={`${userData?.name}'s Avatar`}
+                className="w-32 h-32 object-cover rounded-full border-2 border-gray-300 mb-5"
+              />
+            </div>
+          </div>
 
-        <div>
-          <UserPhotos username={userData?.email as string} />
-          <h2 className="text-2xl mb-6 font-bold">Publicaciones:</h2>
-          {userData?.email ? (
-            <PrimaryTimelines email={userData?.email} />
-          ) : (
-            <p>Cargando...</p>
-          )}
+          <div>
+            <UserPhotos username={userData?.email as string} />
+            <h2 className="text-2xl mb-6 font-bold">Publicaciones:</h2>
+            {userData?.email ? (
+              <PrimaryTimelines email={userData?.email} />
+            ) : (
+              <p>Cargando...</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
