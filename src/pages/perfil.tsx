@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import LastTenUserTimeline from "@/components/LastTenUserTimeline";
 import UserPhotoGallery from "@/components/UserPhotoGallery";
 import ProfileCard from "@/components/ProfileCard";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";

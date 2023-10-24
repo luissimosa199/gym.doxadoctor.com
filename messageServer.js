@@ -18,6 +18,7 @@ app.prepare().then(() => {
 
   io.on("connection", (socket) => {
     console.log("CONNECTED");
+    socket.setMaxListeners(100);
     socket.emit("me", socket.id);
 
     socket.on("joinRoomOnConnect", (room, name, callback) => {

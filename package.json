@@ -1,5 +1,5 @@
 {
-  "name": "medibook",
+  "name": "doxagym",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -82,7 +82,6 @@
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/jest": "^29.5.3",
     "@types/lodash": "^4.14.195",
-    "@types/mongoose": "^5.11.97",
     "@types/stack-utils": "^2.0.1",
     "@types/ua-parser-js": "^0.7.37",
     "@types/uuid": "^9.0.2",
